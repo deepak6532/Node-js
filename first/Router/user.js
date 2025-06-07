@@ -17,6 +17,12 @@ router.patch("/forgot",userController.forgot)
 
 router.get("/getyear",userController.getyear)
 
+router.put('/update',userController.update)
+router.delete('/delete',userController.delete)
+
+
+
+
 
 
 module.exports = router

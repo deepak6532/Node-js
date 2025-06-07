@@ -240,3 +240,26 @@ exports.getyear = async(req,res)=>{
 
     
 }
+
+
+// update data
+
+exports.update =async(req,res) =>{
+    
+    const id = req.body._id
+    const data = req.body
+
+    const abc = await user.findByIdAndUpdate(id,data,{new:true})
+    console.log(">>>>result",data)
+    return res.status(202).send(abc)
+}
+
+
+// delete data
+
+exports.delete = async(req,res) =>{
+    const {id} =  req.query
+    const data = await user.findByIdAndDelete(id)
+    return res.status(202).send(data)
+
+}
