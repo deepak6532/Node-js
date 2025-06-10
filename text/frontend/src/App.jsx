@@ -6,6 +6,7 @@ import Signup from './Components/Signup';
 import Login from './Components/Login';
 import Reset from './Components/Reset';
 import Forgot  from './Components/Forgot';
+import AllUser from './Components/AllUser';
 
 
 
@@ -19,6 +20,7 @@ const App = () => {
         <Link to="/login" className="hover:text-blue-400 font-bold">Login</Link>
         <Link to="/reset" className="hover:text-blue-400 font-bold">Reset</Link>
         <Link to="forgot" className='hover:text-blue-400 font-bold'>Forgot</Link>
+        <Link to="/alluser" className="hover:text-blue-400 font-bold">AllUser</Link>
       </nav>
 
     
@@ -27,7 +29,7 @@ const App = () => {
          <Route path="/login" element={<Login />} />
          <Route path="/reset" element={<Reset />} />
          <Route path="/forgot" element={<Forgot/>}/>
-                
+          <Route path="/alluser" element={<AllUser/>}/>
       </Routes>
     </Router>
   );

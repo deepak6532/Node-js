@@ -3,6 +3,9 @@ const user = require('../Model/user')
 const bcrypt = require("bcrypt")
 const moment = require('moment')
 
+const jwt   = require("jsonwebtoken")
+
+const secreatKey = "abcdefghijklmnopqrstuvwxyz"
 
 // exports.createUser = async(req,res)=>{
 //     console.log("Show data",req.body);
@@ -82,6 +85,10 @@ exports.login = async (req, res) => {
     // console.log(">>>>>>>>>>>alreadyEmail",alreadyEmail)
     const dbpassword = alreadyEmail.password
 
+    // jwt 
+    const token = jwt.sign({email},secreatKey)
+
+    console.log(">>>>Token",token)
 
     const match = await bcrypt.compare(password, dbpassword)
 
@@ -96,7 +103,7 @@ exports.login = async (req, res) => {
         return res.status(404).send({ message: "incorrect otp Try agin!" })
     }
     else {
-        return res.status(202).send({ message: "Login successfull" })
+        return res.status(202).send({ message: "Login successfull" ,token})
     }
 }
 
@@ -130,6 +137,7 @@ exports.reset = async (req, res) => {
 
 
         const abc = await user.findByIdAndUpdate(id, data, { new: true })
+        
         return res.status(202).send({ messsage: "update password", abc })
 
 

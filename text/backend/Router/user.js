@@ -13,6 +13,10 @@ router.put("/reset",userController.reset)
 router.put("/forgot",userController.forgot)
 
 
+router.get("/getuserdata",userController.getuserdata)
+
+
+
 
 
 module.exports = router

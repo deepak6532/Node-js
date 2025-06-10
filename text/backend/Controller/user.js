@@ -1,6 +1,10 @@
 const user = require("../Model/user")
 const bcrypt = require("bcrypt")
 
+const jwt =  require('jsonwebtoken')
+
+const secretKey = "abcdefghijklmnopqrstuvwxyz"
+
 exports.signup = async (req, res) => {
 
     const { name, phone, email, password } = req.body
@@ -29,7 +33,6 @@ exports.signup = async (req, res) => {
         await abc.save()
         return res.status(202).send({message:"Signup success"},abc)
 
-
     }
     catch (error) {
         res.status(500).send({ error: error.message })
@@ -53,6 +56,10 @@ exports.login = async (req, res) => {
     }
 
     const dpassword = alreadyEmail.password
+ 
+    // jwt
+    const token = jwt.sign({email},secretKey)
+    console.log(">>>token",token)
 
     const match = await bcrypt.compare(password, dpassword)
 
@@ -63,7 +70,7 @@ exports.login = async (req, res) => {
         return res.status(404).send({ messsage: "incorrect otp try again" })
     }
     else {
-        return res.status(202).send({ message: "Login successfull" })
+        return res.status(202).send({ message: "Login successfull",token })
     }
 
 
@@ -128,7 +135,7 @@ exports.forgot = async(req,res) =>{
             password: hash
             
         }
-         const abc = await user.findByIdAndUpdate(id, data, { new: true })
+        const abc = await user.findByIdAndUpdate(id, data, { new: true })
         return res.status(202).send({ message: "forgot password sucecessfull", abc })
 
 
@@ -138,4 +145,20 @@ exports.forgot = async(req,res) =>{
     }
 
 
+}
+
+
+// getall
+
+exports.getuserdata  = async(req,res) =>{
+
+    try{
+        const data = await user.find()
+    // console.log(data)
+    return res.status(202).send(data)
+    }
+    catch(err){
+        return res.status(404).send({message:"error not solve getall"})
+
+    }
 }

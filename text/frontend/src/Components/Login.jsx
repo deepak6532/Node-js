@@ -4,33 +4,39 @@ import axios from 'axios'
 
 
 
+
 const Login = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [otp, setOtp] = useState('')
+    
 
 
-    const handelSubmit = (e) => {
-        e.preventDefault()
 
-        const ans = axios.post("http://localhost:8082/user/login", { email, password, otp })
-            .then(ans => {
+   const handelSubmit = async (e) => {
+    e.preventDefault(); 
 
-                if (ans.data.message) {
-                    // alert("login success d")
-                    alert(ans.data.message)
-                    setEmail('');
-                    setPassword('');
-                    setOtp('');
-                }
+    try {
+        const ans = await axios.post("http://localhost:8082/user/login", {email,password,otp});
 
-            })
-            .catch(error => {
-            alert("Login failed try again!");                // alert("password incorrect f")
-            })
+        if (ans.data.token) {
+            localStorage.setItem("Token", ans.data.token);
+           
+        }
+        // console.log( localStorage.getItem("Token") ? localStorage.getItem("Token") :data)
 
+        if (ans.data.message) {
+            alert(ans.data.message);
+            setEmail('');
+            setPassword('');
+            setOtp('');
+        }
+
+    } catch (error) {
+        alert("Login failed, try again!");
     }
+};
 
     return (
         <div className="bg-blue-400 min-h-screen flex items-center justify-center  ">
@@ -60,12 +66,14 @@ const Login = () => {
                         name="otp"
                         value={otp}
                         onChange={(e) => setOtp(e.target.value)}
+                        
                         placeholder="Enter Otp"
                         className='w-full border-2 border-black px-6  py-2 rounded-lg'
 
                     ></input>
 
                     <button type="submit"
+                            
                         className="w-full bg-blue-600 px-5 py-2 rounded-lg text-white font-bold "
                     >Submit</button>
 
