@@ -1,7 +1,9 @@
 const user = require("../Model/user")
 const bcrypt = require("bcrypt")
 
+const moment =  require("moment")
 const jwt =  require('jsonwebtoken')
+
 
 const secretKey = "abcdefghijklmnopqrstuvwxyz"
 
@@ -24,11 +26,15 @@ exports.signup = async (req, res) => {
     }
     // console.log(">>>>>>>>otp ",otp)
 
+
+    const time = moment().format();
+
+
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt)
 
     try {
-        const data = { name, phone, email, password: hash, otp }
+        const data = { name, phone, email, password: hash, otp,time }
         const abc = new user(data)
         await abc.save()
         return res.status(202).send({message:"Signup success"},abc)
@@ -51,11 +57,14 @@ exports.login = async (req, res) => {
 
     const alreadyEmail = await user.findOne({ email })
 
+    const otpTime  = alreadyEmail.time
+
     if (!alreadyEmail) {
         return res.status(404).send({ message: "user not exists " })
     }
 
     const dpassword = alreadyEmail.password
+    const dbotp = alreadyEmail.otp
  
     // jwt
     const token = jwt.sign({email},secretKey,{ expiresIn: '1h' })
@@ -66,17 +75,45 @@ exports.login = async (req, res) => {
     const match = await bcrypt.compare(password, dpassword)
 
     if (!match) {
+
+       
         return res.status(404).send({ message: "incorrect password" })
     }
-    if (otp !== alreadyEmail.otp) {
-        return res.status(404).send({ messsage: "incorrect otp try again" })
+    if (otp === dbotp) {
+
+      const current = moment();
+        const validTime = current.diff(otpTime,"minutes")
+        console.log(">>>>>>.res",validTime );
+        if(validTime > 10)
+        {
+            return res.status(404).send({message:"Otp Expire"})
+        }
+
+        return res.status(202).send({ message: "Login successfull",token })
+
+
+        // return res.status(404).send({ messsage: "incorrect otp try again" })
     }
     else {
-        return res.status(202).send({ message: "Login successfull",token })
+
+        // const current = moment();
+        // const validTime = current.diff(otpTime,"minutes")
+        // console.log(">>>>>>.res",timevalid);
+        // if(validTime > 10)
+        // {
+        //     return res.status(404).send({message:"Otp Expire"})
+        // }
+
+         return res.status(404).send({ messsage: "incorrect otp try again" })
+
+        // return res.status(202).send({ message: "Login successfull",token })
     }
 
 
 }
+
+
+
 
 
 // reset

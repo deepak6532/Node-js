@@ -22,7 +22,12 @@ const userSchema = new mongoose.Schema({
     },
     otp:{
         type:String
+    },
+    time:{
+        type:Date
+   
     }
+
 },{timestamps:true})
 
 const user = mongoose.model("user",userSchema)
