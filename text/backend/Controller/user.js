@@ -58,7 +58,9 @@ exports.login = async (req, res) => {
     const dpassword = alreadyEmail.password
  
     // jwt
-    const token = jwt.sign({email},secretKey)
+    const token = jwt.sign({email},secretKey,{ expiresIn: '1h' })
+
+    
     console.log(">>>token",token)
 
     const match = await bcrypt.compare(password, dpassword)
