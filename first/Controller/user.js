@@ -232,22 +232,22 @@ exports.getquery = async (req, res) => {
 
 // Dob 
 
-exports.getyear = async(req,res)=>{
+// exports.getyear = async(req,res)=>{
     
 
-    const {Dob} = req.body
+//     const {Dob} = req.body
 
-    const year = moment(Dob, "YYYYMMDD").fromNow();
-    const month = moment().fromNow('');
-
-    
-
-    console.log(">>>>>>>>",year)
-    console.log(">>>>>>>>month: ",month)
-
+//     const year = moment(Dob, "YYYYMMDD").fromNow();
+//     const month = moment().fromNow('');
 
     
-}
+
+//     console.log(">>>>>>>>",year)
+//     console.log(">>>>>>>>month: ",month)
+
+
+    
+// }
 
 
 // update data

@@ -26,7 +26,12 @@ const userSchema = new mongoose.Schema({
     time:{
         type:Date
    
+    },
+    salary:{
+        type:Number,
+        require:true
     }
+
 
 },{timestamps:true})
 

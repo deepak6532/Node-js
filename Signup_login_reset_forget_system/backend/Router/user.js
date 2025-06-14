@@ -13,9 +13,13 @@ router.post("/login",userController.login)
 router.put("/reset",userController.reset)
 
 router.put("/forgot",userController.forgot)
-
-
 router.get("/getuserdata",auth,userController.getuserdata)
+
+
+
+router.get("/salary",userController.salary)
+
+
 
 
 

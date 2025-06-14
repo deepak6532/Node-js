@@ -46,7 +46,8 @@ exports.getall = async(req,res)=>{
 
 exports.getid = async(req,res)=>{
 
-    const {id} = req.params
+    const {id} = req.params  
+    
 
     const data = await user.findById(id)
 

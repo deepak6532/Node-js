@@ -9,7 +9,7 @@ const secretKey = "abcdefghijklmnopqrstuvwxyz"
 
 exports.signup = async (req, res) => {
 
-    const { name, phone, email, password } = req.body
+    const { name, phone, email, password ,salary} = req.body
     if (!(name && phone && email && password)) {
         return res.status(500).send("plese fill all field")
     }
@@ -34,7 +34,7 @@ exports.signup = async (req, res) => {
     const hash = bcrypt.hashSync(password, salt)
 
     try {
-        const data = { name, phone, email, password: hash, otp,time }
+        const data = { name, phone, email, password: hash, otp,time,salary }
         const abc = new user(data)
         await abc.save()
         return res.status(202).send({message:"Signup success"},abc)
@@ -92,28 +92,18 @@ exports.login = async (req, res) => {
         return res.status(202).send({ message: "Login successfull",token })
 
 
-        // return res.status(404).send({ messsage: "incorrect otp try again" })
+        
     }
     else {
 
-        // const current = moment();
-        // const validTime = current.diff(otpTime,"minutes")
-        // console.log(">>>>>>.res",timevalid);
-        // if(validTime > 10)
-        // {
-        //     return res.status(404).send({message:"Otp Expire"})
-        // }
-
          return res.status(404).send({ messsage: "incorrect otp try again" })
-
-        // return res.status(202).send({ message: "Login successfull",token })
     }
 
 
 }
 
 
-
+  
 
 
 // reset
@@ -200,4 +190,28 @@ exports.getuserdata  = async(req,res) =>{
         return res.status(404).send({message:"error not solve getall"})
 
     }
+}
+
+
+
+// salary
+
+exports.salary = async (req,res)=>{
+
+    const data = await user.find({ salary: { $gte: 100000 }})
+
+    if(data.length===0)
+    {
+        return res.status(404).send({message :"no user found "})
+    }
+
+
+    {
+        data.map((u)=>{
+            return res.status(202).send(u.name)
+        })
+    }
+    
+    // return res.status(202).send({data})
+
 }
