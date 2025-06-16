@@ -11,9 +11,12 @@ const mongoURL  = "mongodb://localhost:27017/student"
 
 mongoose.connect(mongoURL)
 
-const userRoutes = require('./Router/user');      
+const userRoutes = require('./Router/user');     
+
+const productRoutes = require('./Router/product')
 
 app.use('/user', userRoutes);
+app.use('/product',productRoutes);
 
 
 app.listen(port,()=>{

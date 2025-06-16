@@ -81,13 +81,13 @@ exports.login = async (req, res) => {
     }
     if (otp === dbotp) {
 
-      const current = moment();
-        const validTime = current.diff(otpTime,"minutes")
-        console.log(">>>>>>.res",validTime );
-        if(validTime > 10)
-        {
-            return res.status(404).send({message:"Otp Expire"})
-        }
+        // const current = moment();
+        // const validTime = current.diff(otpTime,"minutes") 
+        // console.log(">>>>>>.res",validTime );
+        // if(validTime > 10)
+        // {
+        //     return res.status(404).send({message:"Otp Expire"})
+        // }
 
         return res.status(202).send({ message: "Login successfull",token })
 
@@ -181,11 +181,16 @@ exports.forgot = async(req,res) =>{
 
 exports.getuserdata  = async(req,res) =>{
 
+    console.log(">>>>>>userDetail",req.userDetail)
+    // const Id = req.userDetail._id 
+    const email = req.userDetail.email
+    // show only login user data 
+
     try{
-        const data = await user.find()
+        const data = await user.findOne({email})
     // console.log(data)
     return res.status(202).send(data)
-    }
+    } 
     catch(err){
         return res.status(404).send({message:"error not solve getall"})
 

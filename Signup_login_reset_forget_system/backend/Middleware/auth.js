@@ -47,6 +47,11 @@ module.exports = async(req,res,next)=>{
 
       console.log(">>>>>>userDetail>>>",userDetail)
 
-      next()
+
+    // client specific data
+
+    req.userDetail = userDetail
+
+    next()
 
 }
