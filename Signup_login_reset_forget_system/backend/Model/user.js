@@ -27,10 +27,10 @@ const userSchema = new mongoose.Schema({
         type:Date
    
     },
-    // salary:{
-    //     type:Number,
-    //     require:true
-    // }
+    role:{
+    type:String,
+    require:true
+   }
 
 
 },{timestamps:true})

@@ -9,7 +9,7 @@ const secretKey = "abcdefghijklmnopqrstuvwxyz"
 
 exports.signup = async (req, res) => {
 
-    const { name, phone, email, password ,salary} = req.body
+    const { name, phone, email, password ,role} = req.body
     if (!(name && phone && email && password)) {
         return res.status(500).send("plese fill all field")
     }
@@ -34,7 +34,7 @@ exports.signup = async (req, res) => {
     const hash = bcrypt.hashSync(password, salt)
 
     try {
-        const data = { name, phone, email, password: hash, otp,time,salary }
+        const data = { name, phone, email, password: hash, otp,time,role }
         const abc = new user(data)
         await abc.save()
         return res.status(202).send({message:"Signup success"},abc)

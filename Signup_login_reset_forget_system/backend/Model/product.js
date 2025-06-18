@@ -13,7 +13,7 @@ const ProductSchema = new mongoose.Schema({
     user_id:{
         type: mongoose.Schema.ObjectId,
         require:true,
-        ref: 'user'                          //user.js m database name user
+        ref: 'user'                             //user.js m database name "user"
     }
 }) 
 
