@@ -3,21 +3,30 @@ import axios from 'axios'
 
 
 const AllUser = () => {
+  const [users, setUser] = useState([]);
 
-    const [users ,setUser] = useState([])
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const token = localStorage.getItem("token");
 
-    useEffect(()=>{
-        axios.get("http://localhost:8082/user/getuserdata")
-        .then(res=>{
-            setUser(res.data)
-        })
-        .catch(err=>{
-            console.error("fetching erro",err)
-        })
-    },[])
+        const res = await axios.get("http://localhost:8082/user/getuserdata", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setUser(res.data);
+      } catch (err) {
+        console.error("Fetching error", err);
+      }
+    };
+
+    fetchUsers(); // Call the async function
+  }, []);
   return (
 
-    <div className="bg-gray-100 min-h screen p-10">
+    <div className="bg-gray-100 min-h-screen p-10">
         <h1 className="text-gray-800 font-bold text-3xl text-center m-10 ">All Users</h1>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 '>
             {

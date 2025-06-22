@@ -27,5 +27,4 @@ router.get("/salary",userController.salary)
 
 
 
-
 module.exports = router
