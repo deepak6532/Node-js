@@ -13,8 +13,10 @@ const GetProduct = () => {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
-            })
-        setProducts(res.data)
+          })
+
+         setProducts(res.data)
+
       } catch (err) {
         console.error('Error fetching products:', err)
       }
@@ -25,10 +27,12 @@ const GetProduct = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">📦 Product List</h2>
+      <h2 className="text-2xl font-bold mb-4"> Product List</h2>
 
       <table className="min-w-full border border-gray-300">
+
         <thead className="bg-gray-200">
+
           <tr>
             <th className="border px-4 py-2">Product Name</th>
             <th className="border px-4 py-2">Price</th>
@@ -37,11 +41,14 @@ const GetProduct = () => {
             <th className="border px-4 py-2">User Email</th>
             <th className="border px-4 py-2">User Role</th>
           </tr>
+
         </thead>
 
 
         <tbody>
-              {products.map((item, index) => (
+
+          {products.map((item, index) => (
+
             <tr key={index} className="text-center">
               <td className="border px-4 py-2">{item.name}</td>
               <td className="border px-4 py-2">₹{item.price}</td>
@@ -50,7 +57,9 @@ const GetProduct = () => {
               <td className="border px-4 py-2">{item.user_id.email || 'N/A'}</td>
               <td className="border px-4 py-2">{item.user_id.role || 'N/A'}</td>
             </tr>
+
           ))}
+
         </tbody>
       </table>
     </div>
