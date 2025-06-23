@@ -12,10 +12,10 @@ const Addproduct = () => {
         try {
 
         const token = localStorage.getItem("Token");
-            if (!token) {
-                alert("User not authenticated");
-                return;
-            }
+        if (!token) {
+            alert("User not authenticated");
+            // return;
+        }
 
         const res = await axios.post("http://localhost:8082/product/addproduct",{ name, price, discount },
                 {
@@ -25,7 +25,7 @@ const Addproduct = () => {
             })
         
 
-            console.log("Server response:", res.data)
+            // console.log("Server response:", res.data)
             if (res.data.message) {
                 alert("product added")
                 setName('')
@@ -33,7 +33,7 @@ const Addproduct = () => {
                 setDiscount('')
             }
         } catch (err) {
-            console.error("Error adding product:", err)
+            // console.error("Error adding product:", err)
             alert("error occurred")
         }
     }
