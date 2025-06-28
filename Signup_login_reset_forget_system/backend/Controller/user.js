@@ -39,8 +39,8 @@ exports.signup = async (req, res) => {
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         auth: {
-            user: "deepakgupta9376@gmail.com",
-            pass: "pjmpbzjyxqfuuoyi",
+           user:process.env.Email,
+           pass:process.env.Password
         },
     });
 
@@ -52,8 +52,8 @@ exports.signup = async (req, res) => {
 
         // nodemailer function 2 send mail
         const info = await transporter.sendMail({
-            from: 'deepakgupta9376@gmail.com',
-            to: "agrawaldeepak9731@gmail.com,deepakgupta.bca22@poddarinstitute.org",
+            from: process.env.Email,
+            to: "agrawaldeepak9731@gmail.com",
             subject: "otp alert",
             text: `your otp is ${otp}`
 
@@ -192,7 +192,7 @@ exports.forgot = async (req, res) => {
 
     }
     else {
-        return res.status(404).send({ message: "plese chek you email and otptry again! " })
+        return res.status(404).send({ message: "plese chek you email and otp try again! " })
     }
 
 

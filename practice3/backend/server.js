@@ -1,6 +1,11 @@
 const express = require("express")
 const mongoose = require("mongoose")
 
+// .env import
+const env = require("dotenv")
+env.config()
+
+
 const cors = require("cors")
 const port = 8082
 const app = express()

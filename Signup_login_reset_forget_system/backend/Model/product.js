@@ -14,7 +14,12 @@ const ProductSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         require:true,
         ref: 'user'                             //user.js m database name "user"
+    },
+    photo:{
+        type:String,
+        require:false
     }
+
 }) 
 
 

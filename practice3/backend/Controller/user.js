@@ -38,8 +38,8 @@ exports.signup = async (req, res) => {
   const Transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     auth: {
-      user: "deepakgupta9376@gmail.com",
-      pass: "pjmp bzjy xqfu uoyi", // Consider using env variable
+      user:process.env.Email,
+      pass:process.env.Password // Consider using env variable
     },
   });
 
@@ -47,7 +47,7 @@ exports.signup = async (req, res) => {
   await result.save();
 
   await Transporter.sendMail({
-    from: "deepakgupta9376@gmail.com",
+    from: process.env.Emai,
     to: email,
     subject: "Otp Alert",
     text: `DO NOT SHARE. OTP is: ${otp}`,

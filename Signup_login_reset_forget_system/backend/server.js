@@ -1,11 +1,19 @@
 const express = require("express")
 const mongoose = require("mongoose")
 
+const fileUpload = require("express-fileupload")
+
+// .env import
+const env =  require("dotenv")
+env.config()
+
 const cors = require("cors")
 const app = express()
 const port = 8082
 app.use(express.json())
 app.use(cors())
+
+app.use(fileUpload())
 
 const mongoURL  = "mongodb://localhost:27017/student"
 
